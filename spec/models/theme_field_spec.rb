@@ -150,10 +150,15 @@ HTML
     field = ThemeField.create!(theme_id: 1, target_id: 0, name: "scss", value: css)
     field.ensure_baked!
     expect(field.error).not_to eq(nil)
+
+    field.value = "@import 'missingfile';"
+    field.save!
+    field.ensure_baked!
+    expect(field.error).to include("File to import not found or unreadable: missingfile.scss.")
+
     field.value = "body {color: blue};"
     field.save!
     field.ensure_baked!
-
     expect(field.error).to eq(nil)
   end
 
@@ -175,12 +180,6 @@ HTML
     expect(result).to include(".class4")
     expect(result).to include(".class5")
     expect(result).to include(".class6")
-  end
-
-  it "raises error on missing SCSS import" do
-    field = Fabricate(:theme).set_field(target: :common, name: :scss, value: "@import 'missingfile';")
-
-    expect(field.error).to include("File to import not found or unreadable: missingfile.scss.")
   end
 
   it "correctly handles extra JS fields" do

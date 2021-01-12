@@ -17,7 +17,7 @@ describe Stylesheet::Compiler do
 
   context "with a theme" do
     let!(:theme) { Fabricate(:theme) }
-    let!(:upload) { Fabricate(:upload) }
+    let!(:upload) { UploadCreator.new(file_from_fixtures("logo.png"), "logo.png").create_for(Discourse.system_user.id) }
     let!(:upload_theme_field) { ThemeField.create!(theme: theme, target_id: 0, name: "primary", upload: upload, value: "", type_id: ThemeField.types[:theme_upload_var]) }
     let!(:stylesheet_theme_field) { ThemeField.create!(theme: theme, target_id: 0, name: "scss", value: "body { background: $primary }", type_id: ThemeField.types[:scss]) }
     before { stylesheet_theme_field.save! }

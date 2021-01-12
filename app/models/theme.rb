@@ -581,6 +581,16 @@ class Theme < ActiveRecord::Base
     find_disable_action_log&.created_at
   end
 
+  def scss_load_paths
+    @exporter ||= ThemeStore::ZipExporter.new(self)
+    temp_dir = @exporter.export_dir
+    ["#{temp_dir}/scss", "#{temp_dir}/stylesheets"]
+  end
+
+  def has_scss_field
+    self.theme_fields.where(type_id: ThemeField.types[:scss]).present?
+  end
+
   private
 
   def find_disable_action_log

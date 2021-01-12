@@ -219,7 +219,7 @@ module Stylesheet
     def theme_import(target, attr)
       fields = theme.list_baked_fields(target, attr)
       fields.map do |field|
-        value = field.import_extra_scss(field.value)
+        value = field.value
         if value.present?
           filename = "theme_#{field.theme.id}/#{field.target_name}-#{field.name}-#{field.theme.name.parameterize}.scss"
           with_comment = <<~COMMENT

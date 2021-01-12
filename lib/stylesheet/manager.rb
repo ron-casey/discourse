@@ -242,6 +242,8 @@ class Stylesheet::Manager
       end
     end
 
+    return ["", nil] if theme && !theme.has_scss_field
+
     rtl = @target.to_s =~ /_rtl$/
     css, source_map = begin
       Stylesheet::Compiler.compile_asset(
@@ -249,7 +251,8 @@ class Stylesheet::Manager
          rtl: rtl,
          theme_id: theme&.id,
          source_map_file: source_map_filename,
-         color_scheme_id: @color_scheme&.id
+         color_scheme_id: @color_scheme&.id,
+         load_paths: theme&.scss_load_paths
       )
     rescue SassC::SyntaxError => e
       if Stylesheet::Importer::THEME_TARGETS.include?(@target.to_s)
