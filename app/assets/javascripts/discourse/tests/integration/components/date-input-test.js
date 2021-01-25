@@ -9,7 +9,7 @@ import { click } from "@ember/test-helpers";
 import hbs from "htmlbars-inline-precompile";
 
 function dateInput() {
-  return queryAll(".date-picker");
+  return queryAll(".date-picker")[0];
 }
 
 function setDate(date) {
@@ -37,7 +37,7 @@ discourseModule("Integration | Component | date-input", function (hooks) {
     },
 
     test(assert) {
-      assert.equal(dateInput().val(), "January 29, 2019");
+      assert.equal(dateInput().value, "January 29, 2019");
     },
   });
 

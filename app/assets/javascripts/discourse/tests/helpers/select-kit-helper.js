@@ -286,7 +286,7 @@ export default function selectKit(selector) {
       await click(
         queryAll(selector)
           .find(".select-kit-header")
-          .find(`[data-value="${value}"]`)
+          .find(`[data-value="${value}"]`)[0]
       );
     },
 

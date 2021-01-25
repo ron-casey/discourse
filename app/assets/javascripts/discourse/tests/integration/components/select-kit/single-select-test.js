@@ -390,8 +390,7 @@ discourseModule("Integration | Component | select-kit/single-select", function (
   });
 
   componentTest("langProperty", {
-    template:
-      '{{single-select langProperty="foo" value=value content=content}}',
+    template: hbs`{{single-select langProperty="foo" value=value content=content}}`,
 
     beforeEach() {
       this.setProperties({

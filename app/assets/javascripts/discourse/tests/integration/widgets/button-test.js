@@ -73,7 +73,7 @@ discourseModule("Integration | Component | Widget | button", function (hooks) {
   });
 
   componentTest("translatedLabel", {
-    template: '{{mount-widget widget="button" args=args}}',
+    template: hbs`{{mount-widget widget="button" args=args}}`,
 
     beforeEach() {
       this.set("args", { translatedLabel: "foo bar" });

@@ -294,8 +294,13 @@ export function applyDefaultHandlers(pretender) {
     return response({ post_replies: [{ id: 1234, cooked: "wat" }] });
   });
 
+  // TODO: Remove this old path when no longer using old ember
   pretender.get("/post_reply_histories", () => {
     return response({ post_reply_histories: [{ id: 1234, cooked: "wat" }] });
+  });
+
+  pretender.get("/posts/:id/reply-history", () => {
+    return response([{ id: 1234, cooked: "wat" }]);
   });
 
   pretender.get("/categories_and_latest", () =>

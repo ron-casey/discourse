@@ -24,8 +24,8 @@ discourseModule("Integration | Component | Widget | header", function (hooks) {
     template: hbs`
       {{mount-widget
         widget="header"
-        showCreateAccount=(action "showCreateAccount")
-        showLogin=(action "showLogin")
+        showCreateAccount=showCreateAccount
+        showLogin=showLogin
         args=args
       }}
     `,
@@ -33,8 +33,8 @@ discourseModule("Integration | Component | Widget | header", function (hooks) {
 
     beforeEach() {
       this.set("args", { canSignUp: true });
-      this.on("showCreateAccount", () => (this.signupShown = true));
-      this.on("showLogin", () => (this.loginShown = true));
+      this.set("showCreateAccount", () => (this.signupShown = true));
+      this.set("showLogin", () => (this.loginShown = true));
     },
 
     async test(assert) {
@@ -53,8 +53,8 @@ discourseModule("Integration | Component | Widget | header", function (hooks) {
     template: hbs`
       {{mount-widget
         widget="header"
-        showCreateAccount=(action "showCreateAccount")
-        showLogin=(action "showLogin")
+        showCreateAccount=showCreateAccount
+        showLogin=showLogin
         args=args
       }}
     `,
@@ -62,8 +62,8 @@ discourseModule("Integration | Component | Widget | header", function (hooks) {
 
     beforeEach() {
       this.set("args", { canSignUp: true });
-      this.on("showCreateAccount", () => (this.signupShown = true));
-      this.on("showLogin", () => (this.loginShown = true));
+      this.set("showCreateAccount", () => (this.signupShown = true));
+      this.set("showLogin", () => (this.loginShown = true));
       this.siteSettings.login_required = true;
     },
 
@@ -79,16 +79,16 @@ discourseModule("Integration | Component | Widget | header", function (hooks) {
     template: hbs`
       {{mount-widget
         widget="header"
-        showCreateAccount=(action "showCreateAccount")
-        showLogin=(action "showLogin")
+        showCreateAccount=showCreateAccount
+        showLogin=showLogin
         args=args
       }}
     `,
 
     beforeEach() {
       this.set("args", { canSignUp: true });
-      this.on("showCreateAccount", () => (this.signupShown = true));
-      this.on("showLogin", () => (this.loginShown = true));
+      this.set("showCreateAccount", () => (this.signupShown = true));
+      this.set("showLogin", () => (this.loginShown = true));
       this.siteSettings.login_required = true;
     },
 

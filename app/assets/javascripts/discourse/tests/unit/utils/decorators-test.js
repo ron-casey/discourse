@@ -3,6 +3,7 @@ import { afterRender } from "discourse-common/utils/decorators";
 import componentTest from "discourse/tests/helpers/component-test";
 import { exists } from "discourse/tests/helpers/qunit-helpers";
 import { moduleForComponent } from "ember-qunit";
+import hbs from "htmlbars-inline-precompile";
 
 const fooComponent = Component.extend({
   layoutName: "foo-component",
@@ -32,7 +33,7 @@ const fooComponent = Component.extend({
 moduleForComponent("utils:decorators", { integration: true });
 
 componentTest("afterRender", {
-  template: "{{foo-component baz=baz}}",
+  template: hbs`foo-component baz=baz}}`,
 
   beforeEach() {
     this.registry.register("component:foo-component", fooComponent);

@@ -62,7 +62,7 @@ discourseModule("Integration | Component | select-kit/combo-box", function (
       );
       assert.equal($header.value(), DEFAULT_VALUE);
 
-      await click($header.el().find(".btn-clear"));
+      await click($header.el().find(".btn-clear")[0]);
 
       assert.notOk(
         exists($header.el().find(".btn-clear")),

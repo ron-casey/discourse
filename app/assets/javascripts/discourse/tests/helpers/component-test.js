@@ -47,6 +47,15 @@ export default function (name, opts) {
     return;
   }
 
+  if (typeof opts.template === "string") {
+    let testName = QUnit.config.currentModule.name + " " + name;
+    // eslint-disable-next-line
+    console.warn(
+      `${testName} skipped; template must be compiled and not a string`
+    );
+    return;
+  }
+
   test(name, async function (assert) {
     this.site = Site.current();
     this.session = Session.current();
@@ -106,6 +115,7 @@ export default function (name, opts) {
       opts.beforeEach.call(this, store);
     }
 
+    $.fn.autocomplete = function () {};
     andThen(() => {
       return LEGACY_ENV ? this.render(opts.template) : render(opts.template);
     });

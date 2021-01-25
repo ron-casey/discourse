@@ -47,11 +47,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("wiki", {
     template: hbs`
-      {{mount-widget widget="post" args=args showHistory=(action "showHistory")}}
+      {{mount-widget widget="post" args=args showHistory=showHistory}}
     `,
     beforeEach() {
       this.set("args", { wiki: true, version: 2, canViewEditHistory: true });
-      this.on("showHistory", () => (this.historyShown = true));
+      this.set("showHistory", () => (this.historyShown = true));
     },
     async test(assert) {
       await click(".post-info .wiki");
@@ -64,11 +64,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("wiki without revision", {
     template: hbs`
-      {{mount-widget widget="post" args=args editPost=(action "editPost")}}
+      {{mount-widget widget="post" args=args editPost=editPost}}
     `,
     beforeEach() {
       this.set("args", { wiki: true, version: 1, canViewEditHistory: true });
-      this.on("editPost", () => (this.editPostCalled = true));
+      this.set("editPost", () => (this.editPostCalled = true));
     },
     async test(assert) {
       await click(".post-info .wiki");
@@ -78,11 +78,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("via-email", {
     template: hbs`
-      {{mount-widget widget="post" args=args showRawEmail=(action "showRawEmail")}}
+      {{mount-widget widget="post" args=args showRawEmail=showRawEmail}}
     `,
     beforeEach() {
       this.set("args", { via_email: true, canViewRawEmail: true });
-      this.on("showRawEmail", () => (this.rawEmailShown = true));
+      this.set("showRawEmail", () => (this.rawEmailShown = true));
     },
     async test(assert) {
       await click(".post-info.via-email");
@@ -95,11 +95,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("via-email without permission", {
     template: hbs`
-      {{mount-widget widget="post" args=args showRawEmail=(action "showRawEmail")}}
+      {{mount-widget widget="post" args=args showRawEmail=showRawEmail}}
     `,
     beforeEach() {
       this.set("args", { via_email: true, canViewRawEmail: false });
-      this.on("showRawEmail", () => (this.rawEmailShown = true));
+      this.set("showRawEmail", () => (this.rawEmailShown = true));
     },
     async test(assert) {
       await click(".post-info.via-email");
@@ -112,11 +112,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("history", {
     template: hbs`
-      {{mount-widget widget="post" args=args showHistory=(action "showHistory")}}
+      {{mount-widget widget="post" args=args showHistory=showHistory}}
     `,
     beforeEach() {
       this.set("args", { version: 3, canViewEditHistory: true });
-      this.on("showHistory", () => (this.historyShown = true));
+      this.set("showHistory", () => (this.historyShown = true));
     },
     async test(assert) {
       await click(".post-info.edits button");
@@ -126,11 +126,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("history without view permission", {
     template: hbs`
-      {{mount-widget widget="post" args=args showHistory=(action "showHistory")}}
+      {{mount-widget widget="post" args=args showHistory=showHistory}}
     `,
     beforeEach() {
       this.set("args", { version: 3, canViewEditHistory: false });
-      this.on("showHistory", () => (this.historyShown = true));
+      this.set("showHistory", () => (this.historyShown = true));
     },
     async test(assert) {
       await click(".post-info.edits");
@@ -207,12 +207,12 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("liking", {
     template: hbs`
-      {{mount-widget widget="post-menu" args=args toggleLike=(action "toggleLike")}}
+      {{mount-widget widget="post-menu" args=args toggleLike=toggleLike}}
     `,
     beforeEach() {
       const args = { showLike: true, canToggleLike: true };
       this.set("args", args);
-      this.on("toggleLike", () => {
+      this.set("toggleLike", () => {
         args.liked = !args.liked;
         args.likeCount = args.liked ? 1 : 0;
       });
@@ -235,13 +235,13 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("anon liking", {
     template: hbs`
-      {{mount-widget widget="post-menu" args=args showLogin=(action "showLogin")}}
+      {{mount-widget widget="post-menu" args=args showLogin=showLogin}}
     `,
     anonymous: true,
     beforeEach() {
       const args = { showLike: true };
       this.set("args", args);
-      this.on("showLogin", () => (this.loginShown = true));
+      this.set("showLogin", () => (this.loginShown = true));
     },
     async test(assert) {
       assert.ok(!!queryAll(".actions button.like").length);
@@ -260,11 +260,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("edit button", {
     template: hbs`
-      {{mount-widget widget="post" args=args editPost=(action "editPost")}}
+      {{mount-widget widget="post" args=args editPost=editPost}}
     `,
     beforeEach() {
       this.set("args", { canEdit: true });
-      this.on("editPost", () => (this.editPostCalled = true));
+      this.set("editPost", () => (this.editPostCalled = true));
     },
     async test(assert) {
       await click("button.edit");
@@ -288,11 +288,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("recover button", {
     template: hbs`
-      {{mount-widget widget="post" args=args deletePost=(action "deletePost")}}
+      {{mount-widget widget="post" args=args deletePost=deletePost}}
     `,
     beforeEach() {
       this.set("args", { canDelete: true });
-      this.on("deletePost", () => (this.deletePostCalled = true));
+      this.set("deletePost", () => (this.deletePostCalled = true));
     },
     async test(assert) {
       await click("button.delete");
@@ -302,11 +302,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("delete topic button", {
     template: hbs`
-      {{mount-widget widget="post" args=args deletePost=(action "deletePost")}}
+      {{mount-widget widget="post" args=args deletePost=deletePost}}
     `,
     beforeEach() {
       this.set("args", { canDeleteTopic: true });
-      this.on("deletePost", () => (this.deletePostCalled = true));
+      this.set("deletePost", () => (this.deletePostCalled = true));
     },
     async test(assert) {
       await click("button.delete");
@@ -364,11 +364,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("recover topic button", {
     template: hbs`
-      {{mount-widget widget="post" args=args recoverPost=(action "recoverPost")}}
+      {{mount-widget widget="post" args=args recoverPost=recoverPost}}
     `,
     beforeEach() {
       this.set("args", { canRecoverTopic: true });
-      this.on("recoverPost", () => (this.recovered = true));
+      this.set("recoverPost", () => (this.recovered = true));
     },
     async test(assert) {
       await click("button.recover");
@@ -392,11 +392,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("delete post button", {
     template: hbs`
-      {{mount-widget widget="post" args=args deletePost=(action "deletePost")}}
+      {{mount-widget widget="post" args=args deletePost=deletePost}}
     `,
     beforeEach() {
       this.set("args", { canDelete: true, canFlag: true });
-      this.on("deletePost", () => (this.deletePostCalled = true));
+      this.set("deletePost", () => (this.deletePostCalled = true));
     },
     async test(assert) {
       await click(".show-more-actions");
@@ -444,11 +444,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("recover post button", {
     template: hbs`
-      {{mount-widget widget="post" args=args recoverPost=(action "recoverPost")}}
+      {{mount-widget widget="post" args=args recoverPost=recoverPost}}
     `,
     beforeEach() {
       this.set("args", { canRecover: true });
-      this.on("recoverPost", () => (this.recovered = true));
+      this.set("recoverPost", () => (this.recovered = true));
     },
     async test(assert) {
       await click("button.recover");
@@ -472,11 +472,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest(`flagging`, {
     template: hbs`
-      {{mount-widget widget="post" args=args showFlags=(action "showFlags")}}
+      {{mount-widget widget="post" args=args showFlags=showFlags}}
     `,
     beforeEach() {
       this.set("args", { canFlag: true });
-      this.on("showFlags", () => (this.flagsShown = true));
+      this.set("showFlags", () => (this.flagsShown = true));
     },
     async test(assert) {
       assert.ok(queryAll("button.create-flag").length === 1);
@@ -583,11 +583,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("cooked content hidden", {
     template: hbs`
-      {{mount-widget widget="post" args=args expandHidden=(action "expandHidden")}}
+      {{mount-widget widget="post" args=args expandHidden=expandHidden}}
     `,
     beforeEach() {
       this.set("args", { cooked_hidden: true });
-      this.on("expandHidden", () => (this.unhidden = true));
+      this.set("expandHidden", () => (this.unhidden = true));
     },
     async test(assert) {
       await click(".topic-body .expand-hidden");
@@ -620,13 +620,13 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("bookmark", {
     template: hbs`
-      {{mount-widget widget="post" args=args toggleBookmark=(action "toggleBookmark")}}
+      {{mount-widget widget="post" args=args toggleBookmark=toggleBookmark}}
     `,
     beforeEach() {
       const args = { canBookmark: true };
 
       this.set("args", args);
-      this.on("toggleBookmark", () => (args.bookmarked = true));
+      this.set("toggleBookmark", () => (args.bookmarked = true));
     },
     async test(assert) {
       assert.equal(queryAll(".post-menu-area .bookmark").length, 1);
@@ -668,12 +668,12 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("toggle moderator post", {
     template: hbs`
-      {{mount-widget widget="post" args=args togglePostType=(action "togglePostType")}}
+      {{mount-widget widget="post" args=args togglePostType=togglePostType}}
     `,
     beforeEach() {
       this.currentUser.set("moderator", true);
       this.set("args", { canManage: true });
-      this.on("togglePostType", () => (this.toggled = true));
+      this.set("togglePostType", () => (this.toggled = true));
     },
     async test(assert) {
       await click(".post-menu-area .show-post-admin-menu");
@@ -689,12 +689,12 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
   });
   componentTest("toggle moderator post", {
     template: hbs`
-      {{mount-widget widget="post" args=args togglePostType=(action "togglePostType")}}
+      {{mount-widget widget="post" args=args togglePostType=togglePostType}}
     `,
     beforeEach() {
       this.currentUser.set("moderator", true);
       this.set("args", { canManage: true });
-      this.on("togglePostType", () => (this.toggled = true));
+      this.set("togglePostType", () => (this.toggled = true));
     },
     async test(assert) {
       await click(".post-menu-area .show-post-admin-menu");
@@ -711,11 +711,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("rebake post", {
     template: hbs`
-      {{mount-widget widget="post" args=args rebakePost=(action "rebakePost")}}
+      {{mount-widget widget="post" args=args rebakePost=rebakePost}}
     `,
     beforeEach() {
       this.set("args", { canManage: true });
-      this.on("rebakePost", () => (this.baked = true));
+      this.set("rebakePost", () => (this.baked = true));
     },
     async test(assert) {
       await click(".post-menu-area .show-post-admin-menu");
@@ -731,11 +731,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("unhide post", {
     template: hbs`
-      {{mount-widget widget="post" args=args unhidePost=(action "unhidePost")}}
+      {{mount-widget widget="post" args=args unhidePost=unhidePost}}
     `,
     beforeEach() {
       this.set("args", { canManage: true, hidden: true });
-      this.on("unhidePost", () => (this.unhidden = true));
+      this.set("unhidePost", () => (this.unhidden = true));
     },
     async test(assert) {
       await click(".post-menu-area .show-post-admin-menu");
@@ -751,12 +751,12 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("change owner", {
     template: hbs`
-      {{mount-widget widget="post" args=args changePostOwner=(action "changePostOwner")}}
+      {{mount-widget widget="post" args=args changePostOwner=changePostOwner}}
     `,
     beforeEach() {
       this.currentUser.admin = true;
       this.set("args", { canManage: true });
-      this.on("changePostOwner", () => (this.owned = true));
+      this.set("changePostOwner", () => (this.owned = true));
     },
     async test(assert) {
       await click(".post-menu-area .show-post-admin-menu");
@@ -772,11 +772,11 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
 
   componentTest("reply", {
     template: hbs`
-      {{mount-widget widget="post" args=args replyToPost=(action "replyToPost")}}
+      {{mount-widget widget="post" args=args replyToPost=replyToPost}}
     `,
     beforeEach() {
       this.set("args", { canCreatePost: true });
-      this.on("replyToPost", () => (this.replied = true));
+      this.set("replyToPost", () => (this.replied = true));
     },
     async test(assert) {
       await click(".post-controls .create");
@@ -960,11 +960,10 @@ discourseModule("Integration | Component | Widget | post", function (hooks) {
   });
 
   componentTest("topic map - has summary", {
-    template:
-      '{{mount-widget widget="post" args=args showSummary=(action "showSummary")}}',
+    template: hbs`mount-widget widget="post" args=args showSummary=showSummary}}`,
     beforeEach() {
       this.set("args", { showTopicMap: true, hasTopicSummary: true });
-      this.on("showSummary", () => (this.summaryToggled = true));
+      this.set("showSummary", () => (this.summaryToggled = true));
     },
     async test(assert) {
       assert.equal(queryAll(".toggle-summary").length, 1);
