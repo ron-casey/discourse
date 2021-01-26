@@ -80,6 +80,11 @@
       }
     }
 
+    .select-kit-header:focus {
+      border-color: var(--tertiary);
+      outline: none;
+    }
+
     &.is-expanded {
       .select-kit-wrapper {
         display: block;
